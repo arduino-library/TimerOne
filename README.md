@@ -1,2 +1,12 @@
 # TimerOne
- Interrupt and PWM utilities for 16 bit Timer1 on ATmega168/328
+ 
+This library provide simple abstraction layers for the ATmega328p’s timer/counter 1. 
+
+
+Usage example:
+* https://github.com/microfarad-de/nixie-clock
+
+Git commands:
+
+* `git submodule add ssh://git@github.com/arduino-library/TimerOne src/TimerOne`
+* `git submodule add https://github.com/arduino-library/TimerOne src/TimerOne`
