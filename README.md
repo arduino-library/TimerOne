@@ -1,6 +1,6 @@
 # TimerOne
  
-This library provide simple abstraction layers for the ATmega328p’s timer/counter 1. 
+This library provide simple abstraction layers for the ATmega328p’s Timer/Counter 1. 
 
 
 Usage example:
