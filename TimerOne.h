@@ -28,7 +28,7 @@ class TimerOne
     unsigned char clockSelectBits;
 
     // methods
-    void initialize(long microseconds=1000000);
+    long initialize(long microseconds=1000000);
     void start();
     void stop();
     void restart();
@@ -36,7 +36,7 @@ class TimerOne
     void disablePwm(char pin);
     void attachInterrupt(void (*isr)(), long microseconds=-1);
     void detachInterrupt();
-    void setPeriod(long microseconds);
+    long setPeriod(long microseconds);
     void setPwmDuty(char pin, int duty);
     void (*isrCallback)();
 };

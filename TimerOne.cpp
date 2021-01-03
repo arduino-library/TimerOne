@@ -24,14 +24,16 @@ ISR(TIMER1_OVF_vect)          // interrupt service routine that wraps a user def
   Timer1.isrCallback();
 }
 
-void TimerOne::initialize(long microseconds)
+long TimerOne::initialize(long microseconds)
 {
   TCCR1A = 0;                 // clear control register A 
   TCCR1B = _BV(WGM13);        // set mode as phase and frequency correct pwm, stop the timer
-  setPeriod(microseconds);
+  long cycles = setPeriod(microseconds);
+  long stepSize = microseconds / cycles; // calculate minimum timer period increment step size
+  return stepSize;
 }
 
-void TimerOne::setPeriod(long microseconds)
+long TimerOne::setPeriod(long microseconds)
 {
   long cycles = (F_CPU * microseconds) / 2000000;                                // the counter runs backwards after TOP, interrupt is at BOTTOM so divide microseconds by 2
   if(cycles < RESOLUTION)              clockSelectBits = _BV(CS10);              // no prescale, full xtal
@@ -43,6 +45,7 @@ void TimerOne::setPeriod(long microseconds)
   ICR1 = pwmPeriod = cycles;                                                     // ICR1 is TOP in p & f correct pwm mode
   TCCR1B &= ~(_BV(CS10) | _BV(CS11) | _BV(CS12));                                // reset clock select register
   TCCR1B |= clockSelectBits;                     
+  return cycles;
 }
 
 void TimerOne::setPwmDuty(char pin, int duty)
