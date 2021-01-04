@@ -4,6 +4,7 @@
  *  Modified March 2009 by Jérôme Despatis and Jesse Tane for ATmega328 support
  *  Modified June 2009 by Michael Polli and Jesse Tane to fix a bug in setPeriod() which caused the timer to stop
  *  Modified December 2017 by Karim Hraibi: moved RESOLUTION macro to .cpp file ( http://www.github.com/microfarad-de )
+ *  Modified January 2021 by Karim Hraibi: calculate the period step size ( http://www.github.com/microfarad-de )
  *
  *  This is free software. You can redistribute it and/or modify it under
  *  the terms of Creative Commons Attribution 3.0 United States License. 

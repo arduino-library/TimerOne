@@ -14,22 +14,22 @@
 
 #include "TimerOne.h"
 
-#define RESOLUTION 65536    // Timer1 is 16 bit
+#define RESOLUTION 65536  // Timer1 is 16 bit
 
 
-TimerOne Timer1;              // preinstatiate
+TimerOne Timer1;          // preinstatiate
 
-ISR(TIMER1_OVF_vect)          // interrupt service routine that wraps a user defined function supplied by attachInterrupt
+ISR(TIMER1_OVF_vect)      // interrupt service routine that wraps a user defined function supplied by attachInterrupt
 {
   Timer1.isrCallback();
 }
 
 long TimerOne::initialize(long microseconds)
 {
-  TCCR1A = 0;                 // clear control register A 
-  TCCR1B = _BV(WGM13);        // set mode as phase and frequency correct pwm, stop the timer
+  TCCR1A = 0;                             // clear control register A 
+  TCCR1B = _BV(WGM13);                    // set mode as phase and frequency correct pwm, stop the timer
   long cycles = setPeriod(microseconds);
-  long stepSize = microseconds / cycles; // calculate minimum timer period increment step size
+  long stepSize = microseconds / cycles;  // calculate minimum timer period increment step size
   return stepSize;
 }
 
@@ -44,7 +44,7 @@ long TimerOne::setPeriod(long microseconds)
   else        cycles = RESOLUTION - 1, clockSelectBits = _BV(CS12) | _BV(CS10);  // request was out of bounds, set as maximum
   ICR1 = pwmPeriod = cycles;                                                     // ICR1 is TOP in p & f correct pwm mode
   TCCR1B &= ~(_BV(CS10) | _BV(CS11) | _BV(CS12));                                // reset clock select register
-  TCCR1B |= clockSelectBits;                     
+  TCCR1B |= clockSelectBits;                                                     // set the prescaler value
   return cycles;
 }
 
